@@ -1,0 +1,120 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  height: 100vh; 
+  text-align: center;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 20px;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.left {
+  border-width: 20px 30px 20px 0;
+  border-color: transparent gray transparent transparent;
+}
+
+.right {
+  border-width: 20px 0 20px 30px;
+  border-color: transparent transparent transparent gray;
+}
+
+.up {
+  border-width: 0 20px 30px 20px;
+  border-color: transparent transparent gray transparent;
+}
+
+.down {
+  border-width: 30px 20px 0 20px;
+  border-color: gray transparent transparent transparent;
+}
+
+.shape {
+  width: 50px;
+  height: 50px;
+  background-color: gray;
+}
+
+.shapes-grid {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  gap: 20px; 
+}
+
+.row-1 {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 10px;
+}
+
+.row-2 {
+  display: flex;
+  justify-content: flex-start; 
+  gap: 10px;
+}
+
+.up{
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid gray;
+  cursor: pointer;
+
+}
+
+.down{
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 30px solid gray;
+  cursor: pointer;
+
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.square {
+  background: gray;
+}
+
+.rectangle {
+  width: 120px;
+}
+
+.trapezoid {
+  border-bottom: 50px solid gray;
+border-left: 25px solid transparent;
+border-right: 25px solid transparent;
+height: 0;
+width: 100px;
+  background-color: transparent; 
+}
+
+.parallelogram {
+  width: 100px;
+  height: 50px;
+  transform: skew(20deg);
+}
+
+.oval {
+  width: 100px;
+  height: 50px;
+  border-radius: 50%;
+}
