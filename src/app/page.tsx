@@ -1,34 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Card, Row, Col, Dropdown, Menu, Button, Space} from "antd";
-import { DownOutlined, GlobalOutlined } from "@ant-design/icons";
+import { Card, Row, Col} from "antd";
 import "./i18n";
 import { useTranslation } from "react-i18next";
+import LangSwitcher from "@/components/LangSwitcher";
 
 export default function Home() {
-  const {t, i18n} = useTranslation();
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng)
-}
-
-const LangSelector = (
-  <Menu
-    items={[
-      {
-        key: "en",
-        label: "EN",
-        onClick: () => changeLanguage("en"),
-      },
-      {
-        key: "th",
-        label: "TH",
-        onClick: () => changeLanguage("th"),
-      },
-    ]}
-  />
-);
+  const { t } = useTranslation();
 
   return (
 
@@ -91,26 +71,10 @@ const LangSelector = (
             </Card>
             </Link>
         </Col>
-        </Row>
+      </Row>
 
-        <div
-        style={{
-          position: "absolute",
-          top: "20px",
-          right: "20px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "8px",
-        }}
-      >
-        <Dropdown overlay={LangSelector} trigger={["click"]}>
-          <Button type="primary" >
-            <Space>
-              {t("Language")} <DownOutlined />
-            </Space>
-          </Button>
-        </Dropdown>
-      </div>
+        <LangSwitcher/>
+        
     </div>
   );
 }
