@@ -1,16 +1,19 @@
-import i18next from 'i18next';
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
 
-i18next.init({
-  lng: 'en', // if you're using a language detector, do not define the lng option
-  debug: true,
-  resources: {
-    en: {
-      translation: {
-        "key": "hello world"
-      }
+import en from "./locales/en/translation.json"
+import th from "./locales/th/translation.json"
+
+i18n.use(initReactI18next).init({
+    resources:{
+        en: {translation : en},
+        th: {translation : th},
+    },
+    lng: "en",
+    fallbackLng : 'en',
+    interpolation:{
+        escapeValue: false
     }
-  }
-});
-// initialized and ready to go!
-// i18next is already initialized, because the translation resources where passed via init function
-// document.getElementById('output').innerHTML = i18next.t('key');
+})
+
+export default i18n;
