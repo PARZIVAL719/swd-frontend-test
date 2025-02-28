@@ -2,7 +2,6 @@
 import React from "react";
 import { Button } from "antd";
 import { useRouter } from "next/navigation";
-import LangSwitcher from "./LangSwitcher";
 import { useTranslation } from "react-i18next";
 
 const HomeButton: React.FC = () => {

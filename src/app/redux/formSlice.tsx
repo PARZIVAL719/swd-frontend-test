@@ -7,7 +7,7 @@ interface FormState {
   mobile: string;
   nationality: string;
   passport: string;
-  salary:string;
+  salary: string;
 }
 
 const initialState: FormState[] = [];
@@ -17,13 +17,16 @@ const formSlice = createSlice({
   initialState,
   reducers: {
     addForm: (state, action: PayloadAction<FormState>) => {
-      state.push(action.payload);
-      console.log("Added Form Entry:", action.payload); 
-      console.log("Updated State:", state); 
-      localStorage.setItem("formData", JSON.stringify(state)); 
+      const existingIndex = state.findIndex(item => item.key === action.payload.key);
+      if (existingIndex !== -1) {
+        state[existingIndex] = action.payload; 
+      } else {
+        state.push(action.payload); 
+      }
+      localStorage.setItem("formData", JSON.stringify(state));
     },
     resetForm: () => {
-      localStorage.removeItem("formData"); 
+      localStorage.removeItem("formData");
       return [];
     },
   },
