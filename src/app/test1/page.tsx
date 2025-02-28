@@ -1,73 +1,49 @@
 "use client";
 
 import React, { useState } from "react";
-import '../../styles/Shape.scss'
+import "../../styles/Shape.scss";
 import "../i18n";
 import { useTranslation } from "react-i18next";
 import { Layout, Card } from "antd";
 import LangSwitcher from "@/components/LangSwitcher";
 import HomeButton from "@/components/homeButton";
+
 const { Header, Content } = Layout;
 
-const initialShapes = [
-  "square",
-  "circle",
-  "oval",
-  "trapezoid",
-  "rectangle",
-  "parallelogram",
-];
+const initialShapes = ["square", "circle", "oval", "trapezoid", "rectangle", "parallelogram"];
 
 export default function ShapesPage() {
   const [shapes, setShapes] = useState(initialShapes);
   const [isSwapped, setIsSwapped] = useState(false);
   const { t } = useTranslation();
 
-  const shuffleAllShapes = () => {
+  const randomShape = () => {
     setShapes((prevShapes) => {
-      const newShapes = [...prevShapes];
-      
-      for (let i = newShapes.length - 1; i > 0; i--) {
+      const shuffledShapes = [...prevShapes];
+      for (let i = shuffledShapes.length - 1; i > 0; i--) {
         const randomIndex = Math.floor(Math.random() * (i + 1));
-        [newShapes[i], newShapes[randomIndex]] = [newShapes[randomIndex], newShapes[i]];
+        [shuffledShapes[i], shuffledShapes[randomIndex]] = [shuffledShapes[randomIndex], shuffledShapes[i]];
       }
-
-      return newShapes;
+      return shuffledShapes;
     });
   };
 
-  const prevPage = () => {
+  const prevShape = () => {
     setShapes((prevShapes) => {
       const lastItem = prevShapes[prevShapes.length - 1];
       return [lastItem, ...prevShapes.slice(0, -1)];
     });
   };
 
-  const nextPage = () => {
+  const nextShape = () => {
     setShapes((prevShapes) => {
       const firstItem = prevShapes[0];
       return [...prevShapes.slice(1), firstItem];
     });
   };
 
-  const upRow = () => {
-    setShapes((prevShapes) => {
-      if (prevShapes.length < 6) return prevShapes;
-      const topRow = prevShapes.slice(0, 3);
-      const bottomRow = prevShapes.slice(3, 6);
-      setIsSwapped(!isSwapped);
-      return [...bottomRow, ...topRow];
-    });
-  };
-
-  const downRow = () => {
-    setShapes((prevShapes) => {
-      if (prevShapes.length < 6) return prevShapes;
-      const topRow = prevShapes.slice(0, 3);
-      const bottomRow = prevShapes.slice(3, 6);
-      setIsSwapped(!isSwapped);
-      return [...bottomRow, ...topRow];
-    });
+  const swapGrid = () => {
+    setIsSwapped(!isSwapped);
   };
 
   return (
@@ -83,9 +59,10 @@ export default function ShapesPage() {
       >
         <LangSwitcher />
         <HomeButton />
-
       </Header>
+
       <h2>{t("Layout & Style")}</h2>
+
       <Content
         style={{
           display: "flex",
@@ -95,50 +72,43 @@ export default function ShapesPage() {
         }}
       >
         <div className="navigation">
-          <Card onClick={nextPage} style={{ cursor: "pointer" }}>
+        <Card className="shape-card" onClick={prevShape}>
             <div className="arrow left"></div>
+            <div className="btn-text">{t("Move Shape")}</div>
           </Card>
 
-          <Card>
+          <Card className="shape-card" onClick={swapGrid}>
             <div style={{ display: "flex" }}>
               <div
                 className="arrow up"
-                onClick={upRow}
                 style={{ cursor: "pointer" }}
               ></div>
               <div
                 className="arrow down"
-                onClick={downRow}
                 style={{ cursor: "pointer" }}
               ></div>
             </div>
+            <div className="btn-text">{t("Move Position")}</div>
           </Card>
 
-          <Card onClick={prevPage} style={{ cursor: "pointer" }}>
+          <Card className="shape-card" onClick={prevShape}>
             <div className="arrow right"></div>
+            <div className="btn-text">{t("Move Shape")}</div>
           </Card>
         </div>
 
-        <div className="shapes-grid">
-          <div className={`row-1 ${isSwapped ? "left" : "right"}`}>
+        <div className="shape-grid">
+          <div className={`row-1 ${isSwapped ? "shift-left" : "shift-right"}`}>
             {shapes.slice(0, 3).map((shape, index) => (
-              <Card
-                key={index}
-                className="shape-card"
-                onClick={shuffleAllShapes}
-              >
+              <Card style={{cursor: "pointer"}} key={index} className="shape-card" onClick={randomShape}>
                 <div className={`shape ${shape}`} />
               </Card>
             ))}
           </div>
 
-          <div className={`row-2 ${isSwapped ? "right" : "left"}`}>
+          <div className={`row-2 ${isSwapped ? "shift-right" : "shift-left"}`}>
             {shapes.slice(3, 6).map((shape, index) => (
-              <Card
-                key={index + 3}
-                className="shape-card"
-                onClick={shuffleAllShapes} 
-              >
+              <Card style={{cursor: "pointer"}} key={index + 3} className="shape-card" onClick={randomShape}>
                 <div className={`shape ${shape}`} />
               </Card>
             ))}
